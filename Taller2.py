@@ -304,28 +304,77 @@ fig3.savefig("Figura3")
 
 #ANÁLISIS DINÁMICO
 
+g = 32.2 #[lb/s^2] Aceleración gravitacional
+peso_combinado = 29 #[lb] Magnitud del peso combinado del peine y la barra de enlace
+fuerza_externa = 540 #[lb] Magnitud de la FUerza de batido aplicada al peine
+
 #La cadena cinemática de 4 barras está formada por eslabones con dimensiones:
 sección_transversal = 2 #(pulg^2)
 #Se asume que el material es Acero Inoxidable AISI 304, cuya densidad es:
 #Densidad del Acero AISI 304: 8.027 g/cm^3
 ρ = 8.027 * (2.2/1000)*(2.54**3/1) #(lb/pulg^3)
 
-#Masa de los eslabones.
-m2 = r2*sección_transversal*ρ #[lb]
-m3 = r3*sección_transversal*ρ #[lb]
-m4 = r4*sección_transversal*ρ #[lb]
-#Se asume que una distribución uniforme de la masa en los eslabones.
+#Masa de los eslabones - se asume que una distribución uniforme de la masa en los eslabones.
+m2 = r2*sección_transversal*ρ #[blobs]
+m3 = r3*sección_transversal*ρ #[blobs]
+m4 = r4*sección_transversal*ρ #[blobs]
+
+
 
 
 #Se separan los eslabones y se realiza un DCL para cada uno.
 
 #Eslabón 2
+#Fuerza de la Bancada sobre el Eslabón 2
+F12x = 0 #[N] (i)
+F12y = 0 #[N] (j)
+F12 = np.array([F12x, F12y])
+#Fuerza del Eslabón 3 sobre el Eslabón 2
+F32x = 0 #[N] (i)
+F32y = 0 #[N] (j)
+F32 = np.array([F32x, F32y])
+#Par de Torsión de entrada
+T12z = 0 #[N*m] (k)
+#Peso del Eslabón 2
+W2 = -m2*g #[N] (j)
+
+#Eslabón 3
+#Fuerza del Eslabón 2 sobre el Eslabón 3
+F23x = -F32x #[N] (i)
+F23y = -F32y #[N] (j)
+F23 = np.array([F23x, F23y])
+#Fuerza del Eslabón 4 sobre el Eslabón 3
+F43x = 0 #[N] (i)
+F43y = 0 #[N] (j)
+F43 = np.array([F43x, F43y])
+#Peso del Eslabón 3
+W3 = -m3*g #[N] (j)
+
+#Eslabón 4
+#Fuerza del Eslabón 3 sobre el Eslabón 4
+F34x = -F43x #[N] (i)
+F34y = -F43y #[N] (j)
+F34 = np.array([F34x, F34y])
+#Fuerza de la Bancada sobre el Eslabón 4
+F14x = 0 #[N] (i)
+F14y = 0 #[N] (j)
+F14 = np.array([F43x, F43y])
+#Peso del Eslabón 4
+W4 = -m4*g #[N] (j)
+#Peso de la Barra de Enlace
+Wc = -peso_combinado #[N] (j)
+#Fuerza Externa de Batido - se considera que siempre es horizontal
+Fbx = -fuerza_externa #[N] (j)
+Fby = 0 #[N] (j)
+Fb = np.array([Fbx, Fby])
 
 
 #Se aplican las Ecuaciones de Newton-Euler
 
 #Eslabón 2
-#
+#F12x + F32x = m2*Ag2x
+#F12y + F32y = m2*Ag2y
+
 
 plt.tight_layout()
 plt.show()
