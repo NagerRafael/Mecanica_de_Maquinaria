@@ -307,6 +307,7 @@ fig3.savefig("Figura3")
 g = 32.2 #[lb/s^2] Aceleración gravitacional
 peso_combinado = 29 #[lb] Magnitud del peso combinado del peine y la barra de enlace
 fuerza_externa = 540 #[lb] Magnitud de la FUerza de batido aplicada al peine
+r5 = 3.75 #[pulg] Distancia desde la junta B hasta el Peine, donde se aplica la fuerza externa.
 
 #La cadena cinemática de 4 barras está formada por eslabones con dimensiones:
 sección_transversal = 2 #(pulg^2)
@@ -319,7 +320,15 @@ m2 = r2*sección_transversal*ρ #[blobs]
 m3 = r3*sección_transversal*ρ #[blobs]
 m4 = r4*sección_transversal*ρ #[blobs]
 
-
+#Se establece un Sistema Coordenado xy LNCS (Sistema de Coordenasdas rotatorio Local No insertado)
+#en el centro de cada eslabón
+r12 = np.array([(r2/2)*math.cos(θ2), (r2/2)*math.sin(θ2)])
+r32 = np.array([(r2/2)*math.cos(θ2+math.pi), (r2/2)*math.sin(θ2+math.pi)])
+r23 = np.array([(r3/2)*math.cos(θ3), (r3/2)*math.sin(θ3)])
+r43 = np.array([(r3/2)*math.cos(θ3-math.pi), (r3/2)*math.sin(θ3-math.pi)])
+r34 = np.array([(r4/2)*math.cos(θ4+math.pi), (r4/2)*math.sin(θ4+math.pi)])
+r14 = np.array([(r4/2)*math.cos(θ4), (r4/2)*math.sin(θ4)])
+r54 = np.array([(r5+r4/2)*math.cos(θ4), (r5+r4/2)*math.sin(θ4)])
 
 
 #Se separan los eslabones y se realiza un DCL para cada uno.
