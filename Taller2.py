@@ -330,6 +330,13 @@ r34 = np.array([(r4/2)*math.cos(θ4+math.pi), (r4/2)*math.sin(θ4+math.pi)])
 r14 = np.array([(r4/2)*math.cos(θ4), (r4/2)*math.sin(θ4)])
 r54 = np.array([(r5+r4/2)*math.cos(θ4), (r5+r4/2)*math.sin(θ4)])
 
+#Cálculo de las componentes x y de la aceleración de los CG de todos los eslabones móviles
+#en el Sistema Coordenado Global (CGS)
+Ag2 = np.array(list(map(A,np.repeat(r2/2, length), θ2, np.repeat(ω2, length), np.repeat(α2,length))))
+Ag3 = np.array(list(map(A,np.repeat(r3/2, length), θ3, ω3, α3)))
+Ag4 = np.array(list(map(A,np.repeat(r4/2, length), θ4, ω4, α4)))
+
+
 
 #Se separan los eslabones y se realiza un DCL para cada uno.
 
