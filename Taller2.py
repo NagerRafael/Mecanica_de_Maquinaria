@@ -310,7 +310,9 @@ fuerza_externa = 540 #[lb] Magnitud de la FUerza de batido aplicada al peine
 r5 = 3.75 #[pulg] Distancia desde la junta B hasta el Peine, donde se aplica la fuerza externa.
 
 #La cadena cinemática de 4 barras está formada por eslabones con dimensiones:
-sección_transversal = 2 #(pulg^2)
+ancho = 2 #[pulg]
+grosor = 1 #[pulg]
+sección_transversal = ancho*grosor #(pulg^2)
 #Se asume que el material es Acero Inoxidable AISI 304, cuya densidad es:
 #Densidad del Acero AISI 304: 8.027 g/cm^3
 ρ = 8.027 * (2.2/1000)*(2.54**3/1) #(lb/pulg^3)
@@ -320,22 +322,27 @@ m2 = r2*sección_transversal*ρ #[blobs]
 m3 = r3*sección_transversal*ρ #[blobs]
 m4 = r4*sección_transversal*ρ #[blobs]
 
+#Calculo de los Momentos de Inercia
+I2 = (m2/12)*(r2**2 + ancho**2)
+I3 = (m3/12)*(r3**2 + ancho**2)
+I4 = (m4/12)*(r4**2 + ancho**2)
+
 #Se establece un Sistema Coordenado xy LNCS (Sistema de Coordenasdas rotatorio Local No insertado)
 #en el centro de cada eslabón
-r12 = np.array([(r2/2)*math.cos(θ2), (r2/2)*math.sin(θ2)])
-r32 = np.array([(r2/2)*math.cos(θ2+math.pi), (r2/2)*math.sin(θ2+math.pi)])
-r23 = np.array([(r3/2)*math.cos(θ3), (r3/2)*math.sin(θ3)])
-r43 = np.array([(r3/2)*math.cos(θ3-math.pi), (r3/2)*math.sin(θ3-math.pi)])
-r34 = np.array([(r4/2)*math.cos(θ4+math.pi), (r4/2)*math.sin(θ4+math.pi)])
-r14 = np.array([(r4/2)*math.cos(θ4), (r4/2)*math.sin(θ4)])
-r54 = np.array([(r5+r4/2)*math.cos(θ4), (r5+r4/2)*math.sin(θ4)])
+for i in range(length):
+    r12 = np.array([-(r2/2)*math.cos(θ2[i])        , -(r2/2)*math.sin(θ2[i])])
+    r32 = np.array([-(r2/2)*math.cos(θ2[i]+math.pi), -(r2/2)*math.sin(θ2[i]+math.pi)])
+    r23 = np.array([-(r3/2)*math.cos(θ3[i])        , -(r3/2)*math.sin(θ3[i])])
+    r43 = np.array([-(r3/2)*math.cos(θ3[i]-math.pi), -(r3/2)*math.sin(θ3[i]-math.pi)])
+    r34 = np.array([-(r4/2)*math.cos(θ4[i]+math.pi), -(r4/2)*math.sin(θ4[i]+math.pi)])
+    r14 = np.array([-(r4/2)*math.cos(θ4[i])        , -(r4/2)*math.sin(θ4[i])])
+    r54 = np.array([-(r5+r4/2)*math.cos(θ4[i])     , -(r5+r4/2)*math.sin(θ4[i])])
 
 #Cálculo de las componentes x y de la aceleración de los CG de todos los eslabones móviles
 #en el Sistema Coordenado Global (CGS)
 Ag2 = np.array(list(map(A,np.repeat(r2/2, length), θ2, np.repeat(ω2, length), np.repeat(α2,length))))
 Ag3 = np.array(list(map(A,np.repeat(r3/2, length), θ3, ω3, α3)))
 Ag4 = np.array(list(map(A,np.repeat(r4/2, length), θ4, ω4, α4)))
-
 
 
 #Se separan los eslabones y se realiza un DCL para cada uno.
@@ -388,9 +395,9 @@ Fb = np.array([Fbx, Fby])
 #Se aplican las Ecuaciones de Newton-Euler
 
 #Eslabón 2
-#F12x + F32x = m2*Ag2x
-#F12y + F32y = m2*Ag2y
-
+#   F12x + F32x = m2*Ag2x
+#   F12y + F32y = m2*Ag2y
+#   T12 + (r12 X F12) + (r32 X F32) = 
 
 plt.tight_layout()
 plt.show()
