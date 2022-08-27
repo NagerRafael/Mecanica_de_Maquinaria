@@ -323,9 +323,9 @@ m3 = r3*sección_transversal*ρ #[blobs]
 m4 = r4*sección_transversal*ρ #[blobs]
 
 #Calculo de los Momentos de Inercia
-I2 = (m2/12)*(r2**2 + ancho**2)
-I3 = (m3/12)*(r3**2 + ancho**2)
-I4 = (m4/12)*(r4**2 + ancho**2)
+Ig2 = (m2/12)*(r2**2 + ancho**2)
+Ig3 = (m3/12)*(r3**2 + ancho**2)
+Ig4 = (m4/12)*(r4**2 + ancho**2)
 
 #Se establece un Sistema Coordenado xy LNCS (Sistema de Coordenasdas rotatorio Local No insertado)
 #en el centro de cada eslabón
@@ -394,10 +394,56 @@ Fb = np.array([Fbx, Fby])
 
 #Se aplican las Ecuaciones de Newton-Euler
 
-#Eslabón 2
+# Eslabón 2
 #   F12x + F32x = m2*Ag2x
 #   F12y + F32y = m2*Ag2y
-#   T12 + (r12 X F12) + (r32 X F32) = 
+#   T12 + (r12x*F12y - r12y*F12x) + (r32x*F32y - r32y*F32x) = Ig2*α2
+
+# Eslabón 3
+#   F43x - F32x = m3*Ag3x
+#   F43y - F32y = m3*Ag3y
+#   (r43x*F43y - r43y*F43x) - (r23x*F32y - r23y*F32x) = Ig3*α3
+
+# Eslabón 4
+#   F14x - F43x + Fbx = m4*Ag4x
+#   F14y - F43y + Fby = m4*Ag4y
+#   (r14x*F14y - r14y*F14x) - (r34x*F43y - r34y*F43x) + (r54x*Fby - r54y*Fbx) = Ig4*α4
+
+#Desarrollando la Matriz
+
+#      F12x    F12y    T12     F32x    F32y    F43x    F43y    F14x   F14y
+
+#   |   1       0       0       1       0       0       0       0      0   |         |   F12x   |
+#   |   0       1       0       0       1       0       0       0      0   |         |   F12y   |
+#   | -r12y    r12x     1     -r32y    r32x     0       0       0      0   |         |   T12    |
+#   |   0       0       0      -1       0       1       0       0      0   |         |   F32x   |
+#   |   0       0       0       0      -1       0       1       0      0   |    X    |   F32y   |   =
+#   |   0       0       0      r23y   -r23x   -r43y    r43x     0      0   |         |   F43x   |
+#   |   0       0       0       0       0      -1       0       1      0   |         |   F43y   |
+#   |   0       0       0       0       0       0      -1       0      1   |         |   F14x   |
+#   |   0       0       0       0       0      r34y   -r34x   -r14y   r14x |         |   F24y   |
+
+#       |   m2*Ag2x   |
+#       |   m2*Ag2Y   |
+#       |   Ig2*α2    |
+#       |   m3*Ag3x   |
+#   =   |   m3*Ag3y   |
+#       |   Ig3*α3    |
+#       | m4*Ag4x-Fbx |
+#       | m4*Ag4y-Fby |
+#  |Ig4*α4-r54x*Fby+r54y*Fbx|
+
+M = np.array([
+   [   1,      0,      0,      1,      0,      0,      0,      0,     0,  ],
+   [   0,      1,      0,      0,      1,      0,      0,      0,     0,  ],
+   [ -r12y,   r12x,    1,    -r32y,   r32x,    0,      0,      0,     0,  ],
+   [   0,      0,      0,     -1,      0,      1,      0,      0,     0,  ],
+   [   0,      0,      0,      0,     -1,      0,      1,      0,     0,  ],
+   [   0,      0,      0,     r23y,  -r23x,  -r43y,   r43x,    0,     0,  ],
+   [   0,      0,      0,      0,      0,     -1,      0,      1,     0,  ],
+   [   0,      0,      0,      0,      0,      0,     -1,      0,     1,  ],
+   [   0,      0,      0,      0,      0,     r34y,  -r34x,  -r14y,  r14x ]
+])
 
 plt.tight_layout()
 plt.show()
