@@ -330,14 +330,42 @@ Ig4 = (m4/12)*(r4**2 + ancho**2)
 #Se establece un Sistema Coordenado xy LNCS (Sistema de Coordenasdas rotatorio Local No insertado)
 #en el centro de cada eslabón
 for i in range(length):
-    r12 = np.array([-(r2/2)*math.cos(θ2[i])        , -(r2/2)*math.sin(θ2[i])])
-    r32 = np.array([-(r2/2)*math.cos(θ2[i]+math.pi), -(r2/2)*math.sin(θ2[i]+math.pi)])
-    r23 = np.array([-(r3/2)*math.cos(θ3[i])        , -(r3/2)*math.sin(θ3[i])])
-    r43 = np.array([-(r3/2)*math.cos(θ3[i]-math.pi), -(r3/2)*math.sin(θ3[i]-math.pi)])
-    r34 = np.array([-(r4/2)*math.cos(θ4[i]+math.pi), -(r4/2)*math.sin(θ4[i]+math.pi)])
-    r14 = np.array([-(r4/2)*math.cos(θ4[i])        , -(r4/2)*math.sin(θ4[i])])
-    r54 = np.array([-(r5+r4/2)*math.cos(θ4[i])     , -(r5+r4/2)*math.sin(θ4[i])])
+    #r12 = np.array([-(r2/2)*math.cos(θ2[i])        , -(r2/2)*math.sin(θ2[i])])
+    r12x = -(r2/2)*math.cos(θ2[i]) 
+    r12y = -(r2/2)*math.sin(θ2[i])
+    r12 = np.array([r12x, r12y])
 
+    #r32 = np.array([-(r2/2)*math.cos(θ2[i]+math.pi), -(r2/2)*math.sin(θ2[i]+math.pi)])
+    r32x = -(r2/2)*math.cos(θ2[i]+math.pi)
+    r32y = -(r2/2)*math.sin(θ2[i]+math.pi)
+    r32 = np.array([r32x, r32y])
+
+    #r23 = np.array([-(r3/2)*math.cos(θ3[i])        , -(r3/2)*math.sin(θ3[i])])
+    r23x = -(r3/2)*math.cos(θ3[i])
+    r23y = -(r3/2)*math.sin(θ3[i])
+    r23 = np.array([r23x, r23y])
+
+    #r43 = np.array([-(r3/2)*math.cos(θ3[i]-math.pi), -(r3/2)*math.sin(θ3[i]-math.pi)])
+    r43x = -(r3/2)*math.cos(θ3[i]-math.pi)
+    r43y = -(r3/2)*math.sin(θ3[i]-math.pi)
+    r43 = np.array([r43x, r43y])
+
+    #r34 = np.array([-(r4/2)*math.cos(θ4[i]+math.pi), -(r4/2)*math.sin(θ4[i]+math.pi)])
+    r34x = -(r4/2)*math.cos(θ4[i]+math.pi)
+    r34y = -(r4/2)*math.sin(θ4[i]+math.pi)
+    r34 = np.array([r34x, r34y])
+
+    #r14 = np.array([-(r4/2)*math.cos(θ4[i])        , -(r4/2)*math.sin(θ4[i])])
+    r14x = -(r4/2)*math.cos(θ4[i])
+    r14y = -(r4/2)*math.sin(θ4[i])
+    r14 = np.array([r14x, r14y])
+
+    #r54 = np.array([-(r5+r4/2)*math.cos(θ4[i])     , -(r5+r4/2)*math.sin(θ4[i])])
+    r54x = -(r5+r4/2)*math.cos(θ4[i])
+    r54y = -(r5+r4/2)*math.sin(θ4[i])
+    r54 = np.array([r54x, r54y])
+
+    
 #Cálculo de las componentes x y de la aceleración de los CG de todos los eslabones móviles
 #en el Sistema Coordenado Global (CGS)
 Ag2 = np.array(list(map(A,np.repeat(r2/2, length), θ2, np.repeat(ω2, length), np.repeat(α2,length))))
