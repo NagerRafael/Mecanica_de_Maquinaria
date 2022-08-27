@@ -365,7 +365,7 @@ for i in range(length):
     r54y = -(r5+r4/2)*math.sin(θ4[i])
     r54 = np.array([r54x, r54y])
 
-    
+
 #Cálculo de las componentes x y de la aceleración de los CG de todos los eslabones móviles
 #en el Sistema Coordenado Global (CGS)
 Ag2 = np.array(list(map(A,np.repeat(r2/2, length), θ2, np.repeat(ω2, length), np.repeat(α2,length))))
@@ -385,7 +385,7 @@ F32x = 0 #[N] (i)
 F32y = 0 #[N] (j)
 F32 = np.array([F32x, F32y])
 #Par de Torsión de entrada
-T12z = 0 #[N*m] (k)
+T12 = 0 #[N*m] (k)
 #Peso del Eslabón 2
 W2 = -m2*g #[N] (j)
 
@@ -449,7 +449,7 @@ Fb = np.array([Fbx, Fby])
 #   |   0       0       0      r23y   -r23x   -r43y    r43x     0      0   |         |   F43x   |
 #   |   0       0       0       0       0      -1       0       1      0   |         |   F43y   |
 #   |   0       0       0       0       0       0      -1       0      1   |         |   F14x   |
-#   |   0       0       0       0       0      r34y   -r34x   -r14y   r14x |         |   F24y   |
+#   |   0       0       0       0       0      r34y   -r34x   -r14y   r14x |         |   F14y   |
 
 #       |   m2*Ag2x   |
 #       |   m2*Ag2Y   |
@@ -471,6 +471,18 @@ M = np.array([
    [   0,      0,      0,      0,      0,     -1,      0,      1,     0,  ],
    [   0,      0,      0,      0,      0,      0,     -1,      0,     1,  ],
    [   0,      0,      0,      0,      0,     r34y,  -r34x,  -r14y,  r14x ]
+])
+
+Incognitas = np.array([
+    F12x,
+    F12y,
+    T12,
+    F32x,
+    F32y,
+    F43x,
+    F43y,
+    F14x,
+    F14y
 ])
 
 plt.tight_layout()
