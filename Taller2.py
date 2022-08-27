@@ -485,5 +485,18 @@ Incognitas = np.array([
     F14y
 ])
 
+Soluciones = np.array([
+    m2*Ag2x,
+    m2*Ag2Y,
+    Ig2*α2,   
+    m3*Ag3x,  
+    m3*Ag3y,  
+    Ig3*α3,
+    m4*Ag4x-Fbx,
+    m4*Ag4y-Fby,
+    Ig4*α4-r54x*Fby+r54y*Fbx
+])
+
+
 plt.tight_layout()
 plt.show()
