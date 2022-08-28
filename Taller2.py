@@ -167,6 +167,8 @@ ax1.set_xlabel("Tiempo [s]")
 ax1.legend()
 ax1.grid(True)
 
+fig1.savefig("θ_vs_Tiempo")
+
 # Funciones de Velocidades Angulares
 def ω3(β2, β3, β4):
     return (r2*ω2/r3)*(math.sin(β4-β2)/math.sin(β3-β4))
@@ -216,7 +218,7 @@ ax2.set_xlabel("Tiempo [s]")
 ax2.legend()
 ax2.grid(True)
 
-
+fig2.savefig("ω_vs_Tiempo")
 
 #Aceleraciones
 # A_A + A_BA - A_B = 0
@@ -298,9 +300,7 @@ ax3.set_xlabel("Tiempo [s]")
 ax3.legend()
 ax3.grid(True)
 
-fig1.savefig("Figura1")
-fig2.savefig("Figura2")
-fig3.savefig("Figura3")
+fig3.savefig("α_vs_Tiempo")
 
 
 #ANÁLISIS DINÁMICO
@@ -556,7 +556,7 @@ fig4, ax4 = plt.subplots(figsize=(10, 8))
 
 # Set axis ranges; by default this will put major ticks every 25.
 ax4.set_xlim(min(tiempos),max(tiempos))
-ax4.set_ylim(min(min(F12x),min(F12y)), max(max(F12x),max(F12y)))
+ax4.set_ylim(min(min(F12x),min(F12y))-1000, max(max(F12x),max(F12y))+1000)
 
 # Change major ticks to show every 20.
 ax4.xaxis.set_major_locator(MultipleLocator(0.01))
@@ -580,7 +580,7 @@ ax4.set_xlabel("Tiempo [s]")
 ax4.legend()
 ax4.grid(True)
 
-fig4.savefig("Figura4")
+fig4.savefig("F12_vs_Tiempo")
 
 
 # Gráfica de la Fuerza Interna de la Junta J(2,3)
@@ -612,14 +612,14 @@ ax5.set_xlabel("Tiempo [s]")
 ax5.legend()
 ax5.grid(True)
 
-fig5.savefig("Figura5")
+fig5.savefig("F32_vs_Tiempo")
 
 # Gráfica de la Fuerza Interna de la Junta J(3,4)
 fig6, ax6 = plt.subplots(figsize=(10, 8))
 
 # Set axis ranges; by default this will put major ticks every 25.
 ax6.set_xlim(min(tiempos),max(tiempos))
-ax6.set_ylim(min(min(F43x),min(F43y)), max(max(F43x),max(F43y)))
+ax6.set_ylim(min(min(F43x),min(F43y))-1000, max(max(F43x),max(F43y))+1000)
 
 # Change major ticks to show every 20.
 ax6.xaxis.set_major_locator(MultipleLocator(0.01))
@@ -643,7 +643,7 @@ ax6.set_xlabel("Tiempo [s]")
 ax6.legend()
 ax6.grid(True)
 
-fig6.savefig("Figura6")
+fig6.savefig("F43_vs_Tiempo")
 
 
 # Gráfica de la Fuerza Interna de la Junta J(1,4)
@@ -651,7 +651,7 @@ fig7, ax7 = plt.subplots(figsize=(10, 8))
 
 # Set axis ranges; by default this will put major ticks every 25.
 ax7.set_xlim(min(tiempos),max(tiempos))
-ax7.set_ylim(min(min(F14x),min(F14y)), max(max(F14x),max(F14y)))
+ax7.set_ylim(min(min(F14x),min(F14y))-1000, max(max(F14x),max(F14y))+1000)
 
 # Change major ticks to show every 20.
 ax7.xaxis.set_major_locator(MultipleLocator(0.01))
@@ -675,7 +675,7 @@ ax7.set_xlabel("Tiempo [s]")
 ax7.legend()
 ax7.grid(True)
 
-fig7.savefig("Figura4")
+fig7.savefig("F14_vs_Tiempo")
 
 
 # Gráfica del Torque de Entrada
@@ -683,7 +683,7 @@ fig8, ax8 = plt.subplots(figsize=(10, 8))
 
 # Set axis ranges; by default this will put major ticks every 25.
 ax8.set_xlim(min(tiempos),max(tiempos))
-ax8.set_ylim(min(min(T12),min(T12)), max(max(T12),max(T12)))
+ax8.set_ylim(min(min(T12),min(T12))-1000, max(max(T12),max(T12))+1000)
 
 # Change major ticks to show every 20.
 ax8.xaxis.set_major_locator(MultipleLocator(0.01))
@@ -706,7 +706,7 @@ ax8.set_xlabel("Tiempo [s]")
 ax8.legend()
 ax8.grid(True)
 
-fig4.savefig("Figura4")
+fig8.savefig("T12_vs_Tiempo")
 
 
 plt.tight_layout()
