@@ -1,3 +1,4 @@
+from statistics import variance
 import numpy as np
 import cmath
 import math
@@ -549,6 +550,163 @@ for s in SOLVE:
     F43y.append(s[6])
     F14x.append(s[7])
     F14y.append(s[8])
+
+# Gráfica de la Fuerza Interna de la Junta J(1,2)
+fig4, ax4 = plt.subplots(figsize=(10, 8))
+
+# Set axis ranges; by default this will put major ticks every 25.
+ax4.set_xlim(min(tiempos),max(tiempos))
+ax4.set_ylim(min(min(F12x),min(F12y)), max(max(F12x),max(F12y)))
+
+# Change major ticks to show every 20.
+ax4.xaxis.set_major_locator(MultipleLocator(0.01))
+ax4.yaxis.set_major_locator(MultipleLocator(2000))
+
+# Change minor ticks to show every 5. (20/4 = 5)
+ax4.xaxis.set_minor_locator(AutoMinorLocator(5))
+ax4.yaxis.set_minor_locator(AutoMinorLocator(5))
+
+# Turn grid on for both major and minor ticks and style minor slightly
+# differently.
+ax4.grid(which='major', color='#CCCCCC', linestyle='--')
+ax4.grid(which='minor', color='#CCCCCC', linestyle=':')
+
+ax4.plot(tiempos, F12x, color='#00a980', linestyle='dotted', label='F12x', lw=2)
+ax4.plot(tiempos, F12y, color='#8ca916', linestyle='dotted', label='F12y', lw=2)
+ax4.axhline(0, color='#303030', lw=1)
+ax4.set_title("Fuerzas Internas de la Junta J(1,2)")
+ax4.set_ylabel("Fuerzas [N]")
+ax4.set_xlabel("Tiempo [s]")
+ax4.legend()
+ax4.grid(True)
+
+fig4.savefig("Figura4")
+
+
+# Gráfica de la Fuerza Interna de la Junta J(2,3)
+fig5, ax5 = plt.subplots(figsize=(10, 8))
+
+# Set axis ranges; by default this will put major ticks every 25.
+ax5.set_xlim(min(tiempos),max(tiempos))
+ax5.set_ylim(min(min(F32x),min(F32y))-1000, max(max(F32x),max(F32y)+1000))
+
+# Change major ticks to show every 20.
+ax5.xaxis.set_major_locator(MultipleLocator(0.01))
+ax5.yaxis.set_major_locator(MultipleLocator(2000))
+
+# Change minor ticks to show every 5. (20/4 = 5)
+ax5.xaxis.set_minor_locator(AutoMinorLocator(5))
+ax5.yaxis.set_minor_locator(AutoMinorLocator(5))
+
+# Turn grid on for both major and minor ticks and style minor slightly
+# differently.
+ax5.grid(which='major', color='#CCCCCC', linestyle='--')
+ax5.grid(which='minor', color='#CCCCCC', linestyle=':')
+
+ax5.plot(tiempos, F32x, color='#00a980', linestyle='dotted', label='F23x', lw=2)
+ax5.plot(tiempos, F32y, color='#8ca916', linestyle='dotted', label='F23y', lw=2)
+ax5.axhline(0, color='#303030', lw=1)
+ax5.set_title("Fuerzas Internas de la Junta J(2,3)")
+ax5.set_ylabel("Fuerzas [N]")
+ax5.set_xlabel("Tiempo [s]")
+ax5.legend()
+ax5.grid(True)
+
+fig5.savefig("Figura5")
+
+# Gráfica de la Fuerza Interna de la Junta J(3,4)
+fig6, ax6 = plt.subplots(figsize=(10, 8))
+
+# Set axis ranges; by default this will put major ticks every 25.
+ax6.set_xlim(min(tiempos),max(tiempos))
+ax6.set_ylim(min(min(F43x),min(F43y)), max(max(F43x),max(F43y)))
+
+# Change major ticks to show every 20.
+ax6.xaxis.set_major_locator(MultipleLocator(0.01))
+ax6.yaxis.set_major_locator(MultipleLocator(2000))
+
+# Change minor ticks to show every 5. (20/4 = 5)
+ax6.xaxis.set_minor_locator(AutoMinorLocator(5))
+ax6.yaxis.set_minor_locator(AutoMinorLocator(5))
+
+# Turn grid on for both major and minor ticks and style minor slightly
+# differently.
+ax6.grid(which='major', color='#CCCCCC', linestyle='--')
+ax6.grid(which='minor', color='#CCCCCC', linestyle=':')
+
+ax6.plot(tiempos, F43x, color='#00a980', linestyle='dotted', label='F43x', lw=2)
+ax6.plot(tiempos, F43y, color='#8ca916', linestyle='dotted', label='F43y', lw=2)
+ax6.axhline(0, color='#303030', lw=1)
+ax6.set_title("Fuerzas Internas de la Junta J(3,4)")
+ax6.set_ylabel("Fuerzas [N]")
+ax6.set_xlabel("Tiempo [s]")
+ax6.legend()
+ax6.grid(True)
+
+fig6.savefig("Figura6")
+
+
+# Gráfica de la Fuerza Interna de la Junta J(1,4)
+fig7, ax7 = plt.subplots(figsize=(10, 8))
+
+# Set axis ranges; by default this will put major ticks every 25.
+ax7.set_xlim(min(tiempos),max(tiempos))
+ax7.set_ylim(min(min(F14x),min(F14y)), max(max(F14x),max(F14y)))
+
+# Change major ticks to show every 20.
+ax7.xaxis.set_major_locator(MultipleLocator(0.01))
+ax7.yaxis.set_major_locator(MultipleLocator(2000))
+
+# Change minor ticks to show every 5. (20/4 = 5)
+ax7.xaxis.set_minor_locator(AutoMinorLocator(5))
+ax7.yaxis.set_minor_locator(AutoMinorLocator(5))
+
+# Turn grid on for both major and minor ticks and style minor slightly
+# differently.
+ax7.grid(which='major', color='#CCCCCC', linestyle='--')
+ax7.grid(which='minor', color='#CCCCCC', linestyle=':')
+
+ax7.plot(tiempos, F14x, color='#00a980', linestyle='dotted', label='F14x', lw=2)
+ax7.plot(tiempos, F14y, color='#8ca916', linestyle='dotted', label='F14y', lw=2)
+ax7.axhline(0, color='#303030', lw=1)
+ax7.set_title("Fuerzas Internas de la Junta J(1,4)")
+ax7.set_ylabel("Fuerzas [N]")
+ax7.set_xlabel("Tiempo [s]")
+ax7.legend()
+ax7.grid(True)
+
+fig7.savefig("Figura4")
+
+
+# Gráfica del Torque de Entrada
+fig8, ax8 = plt.subplots(figsize=(10, 8))
+
+# Set axis ranges; by default this will put major ticks every 25.
+ax8.set_xlim(min(tiempos),max(tiempos))
+ax8.set_ylim(min(min(T12),min(T12)), max(max(T12),max(T12)))
+
+# Change major ticks to show every 20.
+ax8.xaxis.set_major_locator(MultipleLocator(0.01))
+ax8.yaxis.set_major_locator(MultipleLocator(2000))
+
+# Change minor ticks to show every 5. (20/4 = 5)
+ax8.xaxis.set_minor_locator(AutoMinorLocator(5))
+ax8.yaxis.set_minor_locator(AutoMinorLocator(5))
+
+# Turn grid on for both major and minor ticks and style minor slightly
+# differently.
+ax8.grid(which='major', color='#CCCCCC', linestyle='--')
+ax8.grid(which='minor', color='#CCCCCC', linestyle=':')
+
+ax8.plot(tiempos, T12, color='#00a980', linestyle='dotted', label='T12', lw=2)
+ax8.axhline(0, color='#303030', lw=1)
+ax8.set_title("Torque de Entrada")
+ax8.set_ylabel("Torque [N*m]")
+ax8.set_xlabel("Tiempo [s]")
+ax8.legend()
+ax8.grid(True)
+
+fig4.savefig("Figura4")
 
 
 plt.tight_layout()
