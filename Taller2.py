@@ -518,6 +518,10 @@ def matriz(r12, r32, r23, r43, r34, r14, F12, T12, F32, F43, F14, Ag2, Ag3, Ag4 
         Ig4*α4-r54x*Fby+r54y*Fbx
     ])
 
+    Incognitas = np.linalg.solve(M, Soluciones)
+    return Incognitas
+
+F12[0], F12[1], T12, F32[0], F32[1], F43[0], F43[1], F14[0], F14[1] = np.array(list(map(matriz, r12, r32, r23, r43, r34, r14, F12, T12, F32, F43, F14, Ag2, Ag3, Ag4)))
 
 plt.tight_layout()
 plt.show()
