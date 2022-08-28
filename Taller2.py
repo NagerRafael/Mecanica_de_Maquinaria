@@ -329,41 +329,48 @@ Ig4 = (m4/12)*(r4**2 + ancho**2)
 
 #Se establece un Sistema Coordenado xy LNCS (Sistema de Coordenasdas rotatorio Local No insertado)
 #en el centro de cada eslabón
+r12 = []
+r32 = []
+r23 = []
+r43 = []
+r34 = []
+r14 = []
+r54 = []
 for i in range(length):
-    r12 = np.array([-(r2/2)*math.cos(θ2[i])        , -(r2/2)*math.sin(θ2[i])])
+    r12.append([-(r2/2)*math.cos(θ2[i])        , -(r2/2)*math.sin(θ2[i])])
     # r12x = -(r2/2)*math.cos(θ2[i]) 
     # r12y = -(r2/2)*math.sin(θ2[i])
     # r12 = np.array([r12x, r12y])
 
-    r32 = np.array([-(r2/2)*math.cos(θ2[i]+math.pi), -(r2/2)*math.sin(θ2[i]+math.pi)])
+    r32.append([-(r2/2)*math.cos(θ2[i]+math.pi), -(r2/2)*math.sin(θ2[i]+math.pi)])
     # r32x = -(r2/2)*math.cos(θ2[i]+math.pi)
     # r32y = -(r2/2)*math.sin(θ2[i]+math.pi)
     # r32 = np.array([r32x, r32y])
 
-    r23 = np.array([-(r3/2)*math.cos(θ3[i])        , -(r3/2)*math.sin(θ3[i])])
+    r23.append([-(r3/2)*math.cos(θ3[i])        , -(r3/2)*math.sin(θ3[i])])
     # r23x = -(r3/2)*math.cos(θ3[i])
     # r23y = -(r3/2)*math.sin(θ3[i])
     # r23 = np.array([r23x, r23y])
 
-    r43 = np.array([-(r3/2)*math.cos(θ3[i]-math.pi), -(r3/2)*math.sin(θ3[i]-math.pi)])
+    r43.append([-(r3/2)*math.cos(θ3[i]-math.pi), -(r3/2)*math.sin(θ3[i]-math.pi)])
     # r43x = -(r3/2)*math.cos(θ3[i]-math.pi)
     # r43y = -(r3/2)*math.sin(θ3[i]-math.pi)
     # r43 = np.array([r43x, r43y])
 
-    r34 = np.array([-(r4/2)*math.cos(θ4[i]+math.pi), -(r4/2)*math.sin(θ4[i]+math.pi)])
+    r34.append([-(r4/2)*math.cos(θ4[i]+math.pi), -(r4/2)*math.sin(θ4[i]+math.pi)])
     # r34x = -(r4/2)*math.cos(θ4[i]+math.pi)
     # r34y = -(r4/2)*math.sin(θ4[i]+math.pi)
     # r34 = np.array([r34x, r34y])
 
-    r14 = np.array([-(r4/2)*math.cos(θ4[i])        , -(r4/2)*math.sin(θ4[i])])
+    r14.append([-(r4/2)*math.cos(θ4[i])        , -(r4/2)*math.sin(θ4[i])])
     # r14x = -(r4/2)*math.cos(θ4[i])
     # r14y = -(r4/2)*math.sin(θ4[i])
     # r14 = np.array([r14x, r14y])
 
-    #r54 = np.array([-(r5+r4/2)*math.cos(θ4[i])     , -(r5+r4/2)*math.sin(θ4[i])])
-    r54x = -(r5+r4/2)*math.cos(θ4[i])
-    r54y = -(r5+r4/2)*math.sin(θ4[i])
-    r54 = np.array([r54x, r54y])
+    r54.append([-(r5+r4/2)*math.cos(θ4[i])     , -(r5+r4/2)*math.sin(θ4[i])])
+    # r54x = -(r5+r4/2)*math.cos(θ4[i])
+    # r54y = -(r5+r4/2)*math.sin(θ4[i])
+    # r54 = np.array([r54x, r54y])
 
 
 #Cálculo de las componentes x y de la aceleración de los CG de todos los eslabones móviles
@@ -377,45 +384,45 @@ Ag4 = np.array(list(map(A,np.repeat(r4/2, length), θ4, ω4, α4)))
 
 #ESLABÓN 2
 #Fuerza de la Bancada sobre el Eslabón 2
-# F12 = ( F12x, F12y)
+# F12 = [ F12x, F12y ]
 # F12x = 0 #[N] (i)
 # F12y = 0 #[N] (j)
-F12 = np.array(2)
+
 #Fuerza del Eslabón 3 sobre el Eslabón 2
-# F32 = ( F32x, F32y)
+# F32 = [ F32x, F32y ]
 # F32x = 0 #[N] (i)
 # F32y = 0 #[N] (j)
-F32 = np.array(2)
+
 #Par de Torsión de entrada
-T12 = 0 #[N*m] (k)
+#T12 = 0 [N*m] (k)
 #Peso del Eslabón 2
 W2 = m2*g #[N] (j)
 
 #Eslabón 3
 #Fuerza del Eslabón 2 sobre el Eslabón 3
-# F23 = ( F32x, F32y)
+# F23 = [ F32x, F32y ]
 # F23x = -F32x #[N] (i)
 # F23y = -F32y #[N] (j)
-F23 = np.array([-F32[0], -F32[1]])
+
 #Fuerza del Eslabón 4 sobre el Eslabón 3
-# F43 = ( F43x, F43y)
+# F43 = [ F43x, F43y ]
 # F43x = 0 #[N] (i)
 # F43y = 0 #[N] (j)
-F43 = np.array(2)
+
 #Peso del Eslabón 3
 W3 = m3*g #[N] (j)
 
 #ESLABÓN 4
 #Fuerza del Eslabón 3 sobre el Eslabón 4
-# # F34 = ( F34x, F34y)
+# # F34 = [ F34x, F34y ]
 # F34x = -F43x #[N] (i)
 # F34y = -F43y #[N] (j)
-F34 = np.array([-F43[0], -F43[1]])
+
 #Fuerza de la Bancada sobre el Eslabón 4
-# # F14 = ( F14x, F14y)
+# F14 = [ F14x, F14y ]
 # F14x = 0 #[N] (i)
 # F14y = 0 #[N] (j)
-F14 = np.array(2)
+
 #Peso del Eslabón 4
 W4 = m4*g #[N] (j)
 #Peso de la Barra de Enlace
@@ -467,44 +474,41 @@ Fby = Fb[1] #[N] (j)
 #       |m4*Ag4y-Fby+W4|
 #  |Ig4*α4-r54x*Fby+r54y*Fbx|
 
-def matriz(r12, r32, r23, r43, r34, r14, F12, T12, F32, F43, F14, Ag2, Ag3, Ag4 ):
+def matriz(r12, r32, r23, r43, r34, r14, r54, Ag2, Ag3, Ag4, α2, α3, α4):
     r12x, r12y = r12
     r32x, r32y = r32
     r23x, r23y = r23
     r43x, r43y = r43
     r34x, r34y = r34
     r14x, r14y = r14
-    F12x, F12y = F12
-    F32x, F32y = F32
-    F43x, F43y = F43
-    F14x, F14y = F14
+    r54x, r54y = r54
     Ag2x, Ag2y = Ag2
     Ag3x, Ag3y = Ag3
     Ag4x, Ag4y = Ag4
 
     M = np.array([
-    [   1,      0,      0,      1,      0,      0,      0,      0,     0,  ],
-    [   0,      1,      0,      0,      1,      0,      0,      0,     0,  ],
-    [ -r12y,   r12x,    1,    -r32y,   r32x,    0,      0,      0,     0,  ],
-    [   0,      0,      0,     -1,      0,      1,      0,      0,     0,  ],
-    [   0,      0,      0,      0,     -1,      0,      1,      0,     0,  ],
-    [   0,      0,      0,     r23y,  -r23x,  -r43y,   r43x,    0,     0,  ],
-    [   0,      0,      0,      0,      0,     -1,      0,      1,     0,  ],
-    [   0,      0,      0,      0,      0,      0,     -1,      0,     1,  ],
-    [   0,      0,      0,      0,      0,     r34y,  -r34x,  -r14y,  r14x ]
+    [ 1.0,    0.0,    0.0,    1.0,    0.0,    0.0,    0.0,    0.0,   0.0,  ],
+    [ 0.0,    1.0,    0.0,    0.0,    1.0,    0.0,    0.0,    0.0,   0.0,  ],
+    [-r12y,  r12x,    1.0,  -r32y,   r32x,    0.0,    0.0,    0.0,   0.0,  ],
+    [ 0.0,    0.0,    0.0,   -1.0,    0.0,    1.0,    0.0,    0.0,   0.0,  ],
+    [ 0.0,    0.0,    0.0,    0.0,   -1.0,    0.0,    1.0,    0.0,   0.0,  ],
+    [ 0.0,    0.0,    0.0,   r23y,  -r23x,  -r43y,   r43x,    0.0,   0.0,  ],
+    [ 0.0,    0.0,    0.0,    0.0,    0.0,   -1.0,    0.0,    1.0,   0.0,  ],
+    [ 0.0,    0.0,    0.0,    0.0,    0.0,    0.0,   -1.0,    0.0,   1.0,  ],
+    [ 0.0,    0.0,    0.0,    0.0,    0.0,   r34y,  -r34x,  -r14y,  r14x   ]
     ])
 
-    Incognitas = np.array([
-        F12x,
-        F12y,
-        T12,
-        F32x,
-        F32y,
-        F43x,
-        F43y,
-        F14x,
-        F14y
-    ])
+    # Incognitas = np.array([
+    #     F12x,
+    #     F12y,
+    #     T12,
+    #     F32x,
+    #     F32y,
+    #     F43x,
+    #     F43y,
+    #     F14x,
+    #     F14y
+    # ])
 
     Soluciones = np.array([
         m2*Ag2x,
@@ -518,10 +522,34 @@ def matriz(r12, r32, r23, r43, r34, r14, F12, T12, F32, F43, F14, Ag2, Ag3, Ag4 
         Ig4*α4-r54x*Fby+r54y*Fbx
     ])
 
-    Incognitas = np.linalg.solve(M, Soluciones)
-    return Incognitas
+    #F12x, F12y, T12, F32x, F32y, F43x, F43y, F14x, F14y = np.linalg.solve(M, Soluciones)
 
-F12[0], F12[1], T12, F32[0], F32[1], F43[0], F43[1], F14[0], F14[1] = np.array(list(map(matriz, r12, r32, r23, r43, r34, r14, F12, T12, F32, F43, F14, Ag2, Ag3, Ag4)))
+    return np.linalg.solve(M, Soluciones)
+
+F12x = []
+F12y = []
+T12  = []
+F32x = []
+F32y = []
+F43x = []
+F43y = []
+F14x = []
+F14y = []
+
+
+SOLVE = list(map(matriz, r12, r32, r23, r43, r34, r14, r54, Ag2, Ag3, Ag4, np.repeat(α2, length), α3, α4))
+
+for s in SOLVE:
+    F12x.append(s[0]) 
+    F12y.append(s[1])
+    T12.append(s[2])
+    F32x.append(s[3])
+    F32y.append(s[4])
+    F43x.append(s[5])
+    F43y.append(s[6])
+    F14x.append(s[7])
+    F14y.append(s[8])
+
 
 plt.tight_layout()
 plt.show()
