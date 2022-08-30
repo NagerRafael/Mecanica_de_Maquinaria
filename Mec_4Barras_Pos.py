@@ -29,7 +29,7 @@ a = 40 #[mm]
 b = 120 #[mm]
 c = 80 #[mm]
 d = 100 #[mm]
-θ2 = 40*(math.pi/180) #[°]
+θ2 = 40*(math.pi/180) #[rad]
 
 # MÉTODO ALGEBRAICO
 def Pos_Algeb(a, b, c, d, θ2):
@@ -106,7 +106,7 @@ def Pos_LVC(a, b, c, d, θ2):
     # a*e^(jθ2) + b*e^(jθ3) - c*e^(jθ4) - d*e^(jθ1) = 0
 
     # Al sustituir por las equivalentes de Euler:
-    # a*(Cos(θ2) + jSen(θ2)) + b*(Cos(θ3) + jSen(θ3)) - c*(Cos(θ4) + jSen(θ4)) - d*(Cos(θ1) + jSen(θ1))
+    # a*(Cos(θ2) + jSen(θ2)) + b*(Cos(θ3) + jSen(θ3)) - c*(Cos(θ4) + jSen(θ4)) - d*(Cos(θ1) + jSen(θ1)) = 0
 
     # Separando la parte Real de la Imaginaria
     # Real: a*Cos(θ2) + b*Cos(θ3) - c*Cos(θ4) - d*Cos(θ1) = 0
@@ -181,8 +181,8 @@ def Pos_LVC(a, b, c, d, θ2):
         θ4_c = 2*math.atan(ans2)
 
         # Los términos cruzado y abierto están basados en la suposición
-        # de que el eslabón de entrada 2, para el cual θ2 está defi nido, se encuentra en el primer cuadrante
-        # (es decir, 0 < θ2 < π/2). Un mecanismo de Grashof se defi ne entonces como cruzado si los
+        # de que el eslabón de entrada 2, para el cual θ2 está definido, se encuentra en el primer cuadrante
+        # (es decir, 0 < θ2 < π/2). Un mecanismo de Grashof se define entonces como cruzado si los
         # dos eslabones adyacentes al eslabón más corto se cruzan entre sí, y como abierto si no lo hacen en
         # esta posición.
 
