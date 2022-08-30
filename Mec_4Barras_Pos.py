@@ -252,17 +252,17 @@ def Pos_LVC(a, b, c, d, θ2):
     else:
         return print("<--raices conjugadas compleja-->\nLos Eslabones no se Conectan\no\nMecanismo de No Grashof fuera de la posición límite estacionaria")
 
-def radToDeg(rad):
+def radToDeg(rad): #Función para convertir de rad a grados hexadecimales
     return rad*(180.0/math.pi)
 
-print(a,b,c,d,θ2)
-alg = Pos_Algeb(a,b,c,d,θ2)
+print('Ejemplo de prueba 4-1 (Libro de Robert Norton - pág 131)')
+print('a: {:>8.3f}\nb: {:>8.3f}\nc: {:>8.3f}\nd: {:>8.3f}\nθ2: {:>7.3f}'.format(a,b,c,d,θ2))
+# alg = Pos_Algeb(a,b,c,d,θ2)
 lvc = Pos_LVC(a,b,c,d,θ2)
 
-print("\nALG",alg)
-print("\nConfiguración: [ Abierta ; Cruzada ]")
-print("θ3: [{:6.3f} ; {:6.3f}]\nθ4: [{:6.3f} ; {:6.3f}]".format(radToDeg(alg[0][0]), radToDeg(alg[0][1]), radToDeg(alg[1][0]), radToDeg(alg[1][1])))
-
+# print("\nALG",alg)
+# print("\nConfiguración: [ Abierta ; Cruzada ]")
+# print("θ3: [{:6.3f} ; {:6.3f}]\nθ4: [{:6.3f} ; {:6.3f}]".format(radToDeg(alg[0][0]), radToDeg(alg[0][1]), radToDeg(alg[1][0]), radToDeg(alg[1][1])))
 
 print("\nLVC",lvc)
 print("\nConfiguración: [ Abierta ; Cruzada ]")
