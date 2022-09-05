@@ -25,12 +25,6 @@ n = 0
 #     print('{:d}) {:s}'.format(n,op))
 # md = int(input('<Ingresar Opción>: '))
 
-a = 40 #[mm]
-b = 120 #[mm]
-c = 80 #[mm]
-d = 100 #[mm]
-θ2 = 40*(math.pi/180) #[rad]
-
 # MÉTODO ALGEBRAICO
 def Pos_Algeb(a, b, c, d, θ2):
     # Coordenadas de la Junta A:
@@ -255,15 +249,103 @@ def Pos_LVC(a, b, c, d, θ2):
 def radToDeg(rad): #Función para convertir de rad a grados hexadecimales
     return rad*(180.0/math.pi)
 
-print('Ejemplo de prueba 4-1 (Libro de Robert Norton - pág 131)')
-print('a: {:>8.3f}\nb: {:>8.3f}\nc: {:>8.3f}\nd: {:>8.3f}\nθ2: {:>7.3f}'.format(a,b,c,d,θ2))
-# alg = Pos_Algeb(a,b,c,d,θ2)
-lvc = Pos_LVC(a,b,c,d,θ2)
 
-# print("\nALG",alg)
+# Función de Velocidad Angular
+def ω(a, b, c, β2, β3, β4, ω2):
+    ω3 = (a*ω2/b)*(math.sin(β4-β2)/math.sin(β3-β4))
+    ω4 = (a*ω2/c)*(math.sin(β2-β3)/math.sin(β4-β3))
+    return (ω3, ω4)
+
+#Función de Aceleración Angular
+def α(a, b, c, β2, β3, β4, ώ2, ώ3, ώ4, α2):
+    #Se definen las constantes:
+    A = c*math.sin(β4)
+    B = b*math.sin(β3)
+    C = a*α2*math.sin(β2) + a*ώ2**2*math.cos(β2) + b*ώ3**2*math.cos(β3) - c*ώ4**2*math.cos(β4)
+    D = c*math.cos(β4)
+    E = b*math.cos(β3)
+    F = a*α2*math.cos(β2) - a*ώ2**2*math.sin(β2) - b*ώ3**2*math.sin(β3) + c*ώ4**2*math.sin(β4)
+    α3 = (C*D - A*F) / (A*E - B*D)
+    α4 = (C*E - B*F) / (A*E - B*D)
+    return (α3, α4)
+
+#Función de la Aceleración Lineal
+def A(r, θ, ω, α):
+    At = r*α*np.array([-math.sin(θ), math.cos(θ)])
+    An = -r*ω**2*np.array([math.cos(θ), math.sin(θ)])
+    return np.array([At[0] + An[0], At[1] + An[1]])
+
+
+# Pruebas:
+
+# a = 40 #[mm]
+# b = 120 #[mm]
+# c = 80 #[mm]
+# d = 100 #[mm]
+# θ2 = 40*(math.pi/180) #[rad]
+# print('Ejemplo de prueba 4-1 (Libro de Robert Norton - pág 131)')
+# print('a: {:>8.3f}\nb: {:>8.3f}\nc: {:>8.3f}\nd: {:>8.3f}\nθ2: {:>7.3f}'.format(a,b,c,d,θ2))
+# # alg = Pos_Algeb(a,b,c,d,θ2)
+# lvc = Pos_LVC(a,b,c,d,θ2)
+
+# # print("\nALG",alg)
+# # print("\nConfiguración: [ Abierta ; Cruzada ]")
+# # print("θ3: [{:6.3f} ; {:6.3f}]\nθ4: [{:6.3f} ; {:6.3f}]".format(radToDeg(alg[0][0]), radToDeg(alg[0][1]), radToDeg(alg[1][0]), radToDeg(alg[1][1])))
+
+# print("\nLVC",lvc)
 # print("\nConfiguración: [ Abierta ; Cruzada ]")
-# print("θ3: [{:6.3f} ; {:6.3f}]\nθ4: [{:6.3f} ; {:6.3f}]".format(radToDeg(alg[0][0]), radToDeg(alg[0][1]), radToDeg(alg[1][0]), radToDeg(alg[1][1])))
+# print("θ3: [{:6.3f} ; {:6.3f}]\nθ4: [{:6.3f} ; {:6.3f}]".format(radToDeg(lvc[0][0]), radToDeg(lvc[0][1]), radToDeg(lvc[1][0]), radToDeg(lvc[1][1])))
 
-print("\nLVC",lvc)
-print("\nConfiguración: [ Abierta ; Cruzada ]")
-print("θ3: [{:6.3f} ; {:6.3f}]\nθ4: [{:6.3f} ; {:6.3f}]".format(radToDeg(lvc[0][0]), radToDeg(lvc[0][1]), radToDeg(lvc[1][0]), radToDeg(lvc[1][1])))
+
+# a = 0.2 #[m]
+# b = 0.3 #[m]
+# c = 0.2 #[m]
+# d = 0.3 #[mm]
+# θ2 = 135*(math.pi/180) #[rad]
+# print('Ejemplo de Lección (Livingston)')
+# print('a: {:>8.3f}\nb: {:>8.3f}\nc: {:>8.3f}\nd: {:>8.3f}\nθ2: {:>7.3f}'.format(a,b,c,d,θ2))
+
+# lvc = Pos_LVC(a,b,c,d,θ2)
+
+# print("\nLVC",lvc)
+# print("\nConfiguración: [ Abierta ; Cruzada ]")
+# print("θ3: [{:6.3f} ; {:6.3f}]\nθ4: [{:6.3f} ; {:6.3f}]".format(radToDeg(lvc[0][0]), radToDeg(lvc[0][1]), radToDeg(lvc[1][0]), radToDeg(lvc[1][1])))
+
+
+
+# a = 0.2 # [m]
+# b = 0.3 #[m]
+# c = 0.2 #[m]
+# d = 0.3 #[m]
+# θ2 = 135*(math.pi/180) # [rad]
+# α2 = -1 # [rad/s^2]
+# ω2 = -2 # [rad/s]
+# print('Lección 3 (Livingston)')
+# print('a: {:>8.3f}\nb: {:>8.3f}\nc: {:>8.3f}\nθ2: {:>7.3f}'.format(a,b,c,θ2))
+
+# lvc = Pos_LVC(a,b,c,d,θ2)
+# θ3 = lvc[0][0]
+# θ4 = lvc[1][0]
+# print("\nLVC",lvc)
+# print("\nConfiguración: [ Abierta ; Cruzada ]")
+# print("d: [{:6.3f} mm ; {:6.3f} mm]\nθ3: [{:6.3f}° ; {:6.3f}°]".format(lvc[0][0], lvc[0][1], radToDeg(lvc[1][0]), radToDeg(lvc[1][1])))
+
+# ω3, ω4 = ω(a, b, c, 135, 0, 135, -2)
+# α3, α4 = α(a, b, c, 135, 0, 135, -2, ω3, ω4, -1)
+# print("\nω",ω3,ω4)
+# print("ω3: {:6.3f} [rad/s]\nω4: {:6.3f} [rad/s]".format(ω3, ω4))
+
+# print("\nα",α3,α4)
+# print("α3: {:6.3f} [rad/s^2]\nα4: {:6.3f} [rad/s^2]".format(α3, α4))
+
+# A2 = A(0, θ2, ω2, α2)
+# print("\nA",A2)
+# print("A2_x: {:6.3f} [m/s^2]\nA2_y: {:6.3f} [m/s^2]\n".format(A2[0], A2[1]))
+# A3 = A(b, θ3, ω3, α3)
+# print("\nA3",A3)
+# print("A3_x: {:6.3f} [m/s^2]\nA3_y: {:6.3f} [m/s^2]\n".format(A3[0], A3[1]))
+# A4 = A(0, θ4, ω4, α4)
+# print("\nA4",A4)
+# print("A4_x: {:6.3f} [m/s^2]\nA4_y: {:6.3f} [m/s^2]\n".format(A4[0], A4[1]))
+
+print(A(3, 30*np.pi/180, 25, -40))

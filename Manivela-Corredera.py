@@ -82,6 +82,7 @@ def ManivelaCorredera_Pos(a,b,c,θ2):
 def radToDeg(rad): #Función para convertir de rad a grados hexadecimales
     return rad*(180.0/math.pi)
 
+
 # a = 40 # [mm]
 # b = 120 #[mm]
 # c = -20 #[mm]
@@ -96,15 +97,15 @@ def radToDeg(rad): #Función para convertir de rad a grados hexadecimales
 # print("d: [{:6.3f} mm ; {:6.3f} mm]\nθ3: [{:6.3f}° ; {:6.3f}°]".format(lvc[0][0], lvc[0][1], radToDeg(lvc[1][0]), radToDeg(lvc[1][1])))
 
 
-a = 3 # [in]
-b = 12 #[in]
-c = 0 #[in]
-θ2 = 45*(math.pi/180) # [rad]
-print('Ejercicio en CLase 14 (Livingston)')
-print('a: {:>8.3f}\nb: {:>8.3f}\nc: {:>8.3f}\nθ2: {:>7.3f}'.format(a,b,c,θ2))
+# a = 3 # [in]
+# b = 12 #[in]
+# c = 0 #[in]
+# θ2 = 45*(math.pi/180) # [rad]
+# print('Ejercicio en CLase 14 (Livingston)')
+# print('a: {:>8.3f}\nb: {:>8.3f}\nc: {:>8.3f}\nθ2: {:>7.3f}'.format(a,b,c,θ2))
 
-lvc = ManivelaCorredera_Pos(a,b,c,θ2)
+# lvc = ManivelaCorredera_Pos(a,b,c,θ2)
 
-print("\nLVC",lvc)
-print("\nConfiguración: [ Abierta ; Cruzada ]")
-print("d: [{:6.3f} mm ; {:6.3f} mm]\nθ3: [{:6.3f}° ; {:6.3f}°]".format(lvc[0][0], lvc[0][1], radToDeg(lvc[1][0]), radToDeg(lvc[1][1])))
+# print("\nLVC",lvc)
+# print("\nConfiguración: [ Abierta ; Cruzada ]")
+# print("d: [{:6.3f} mm ; {:6.3f} mm]\nθ3: [{:6.3f}° ; {:6.3f}°]".format(lvc[0][0], lvc[0][1], radToDeg(lvc[1][0]), radToDeg(lvc[1][1])))
